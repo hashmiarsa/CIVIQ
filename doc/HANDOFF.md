@@ -63,6 +63,7 @@ Dev Tools:     Swagger, Jest, Postman
 backend/
 ├── src/
 │   ├── config/
+|   |   ├── index.js               # Central config — all env variables
 │   │   ├── db.js                  # MongoDB connection
 │   │   └── cloudinary.js          # Cloudinary config
 │   ├── models/

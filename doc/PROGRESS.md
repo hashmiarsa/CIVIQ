@@ -23,6 +23,7 @@ Phase 5 — Integration & Testing   ⏳ NOT STARTED
 **Must build:**
 - [ ] package.json with all dependencies
 - [ ] backend folder structure (all folders and empty files)
+- [ ] src/config/index.js — central env config (reads dotenv, exports constants)
 - [ ] src/config/db.js — MongoDB connection
 - [ ] src/models/User.js
 - [ ] src/models/Department.js
@@ -38,7 +39,7 @@ Phase 5 — Integration & Testing   ⏳ NOT STARTED
 - [ ] src/middleware/error.middleware.js — global error handler
 - [ ] src/middleware/validate.middleware.js
 - [ ] src/controllers/auth.controller.js — register, login, me
-- [ ] src/services/auth.service.js
+- [ ] src/services/auth.service.js — registerUser, loginUser, getMe
 - [ ] src/routes/auth.routes.js
 - [ ] src/routes/project.routes.js — routes defined, controllers stubbed
 - [ ] src/routes/conflict.routes.js — routes defined, controllers stubbed
