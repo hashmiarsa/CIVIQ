@@ -7,9 +7,9 @@
 ## Current Status
 
 ```
-Phase 1 — Backend Foundation      🔄 IN PROGRESS
+Phase 1 — Backend Foundation      ✅ DONE
 Phase 2 — Decision Engines        ⏳ NOT STARTED
-Phase 3 — Frontend                ⏳ NOT STARTED
+Phase 3 — Frontend                🔄 IN PROGRESS
 Phase 4 — Maps & Realtime         ⏳ NOT STARTED
 Phase 5 — Integration & Testing   ⏳ NOT STARTED
 ```
@@ -18,75 +18,114 @@ Phase 5 — Integration & Testing   ⏳ NOT STARTED
 
 ## Phase 1 — Backend Foundation
 **Assigned to:** Claude ID 1
-**Status:** 🔄 IN PROGRESS
+**Status:** ✅ DONE
 
 **Must build:**
 
 ### Config
-- [ ] src/config/index.js — central env config (reads dotenv, exports constants, crashes on missing vars)
-- [ ] src/config/db.js — MongoDB connection
-- [ ] src/config/cloudinary.js — Cloudinary config
+- [x] src/config/index.js — central env config (reads dotenv, exports constants, crashes on missing vars)
+- [x] src/config/db.js — MongoDB connection
+- [x] src/config/cloudinary.js — Cloudinary config
 
 ### Models
-- [ ] src/models/User.js
-- [ ] src/models/Department.js
-- [ ] src/models/Project.js
-- [ ] src/models/Conflict.js
-- [ ] src/models/CitizenReport.js
-- [ ] src/models/AuditLog.js
+- [x] src/models/User.js
+- [x] src/models/Department.js
+- [x] src/models/Project.js
+- [x] src/models/Conflict.js
+- [x] src/models/CitizenReport.js
+- [x] src/models/AuditLog.js
 
 ### Utils
-- [ ] src/utils/response.js — success/error response helpers
-- [ ] src/utils/logger.js — Winston logger
-- [ ] src/utils/trackingId.js — CNR-XXXXXX generator
+- [x] src/utils/response.js — success/error response helpers
+- [x] src/utils/logger.js — Winston logger
+- [x] src/utils/trackingId.js — CNR-XXXXXX generator
 
 ### Middleware
-- [ ] src/middleware/auth.middleware.js — JWT verify, sets req.user
-- [ ] src/middleware/rbac.middleware.js — permit() role checker
-- [ ] src/middleware/validate.middleware.js — Joi/Zod schema runner
-- [ ] src/middleware/error.middleware.js — global error handler
+- [x] src/middleware/auth.middleware.js — JWT verify, sets req.user
+- [x] src/middleware/rbac.middleware.js — permit() role checker
+- [x] src/middleware/validate.middleware.js — Joi/Zod schema runner
+- [x] src/middleware/error.middleware.js — global error handler
 
 ### Validators
-- [ ] src/validators/auth.validator.js
-- [ ] src/validators/project.validator.js
+- [x] src/validators/auth.validator.js
+- [x] src/validators/project.validator.js
 
 ### Auth (fully built)
-- [ ] src/services/auth.service.js — registerUser, loginUser, getMe
-- [ ] src/controllers/auth.controller.js — register, login, me
-- [ ] src/routes/auth.routes.js
+- [x] src/services/auth.service.js — registerUser, loginUser, getMe
+- [x] src/controllers/auth.controller.js — register, login, me
+- [x] src/routes/auth.routes.js
 
 ### Stubbed Controllers + Routes
-- [ ] src/controllers/project.controller.js — stubbed, returns 200 "Coming soon"
-- [ ] src/controllers/conflict.controller.js — stubbed, returns 200 "Coming soon"
-- [ ] src/controllers/department.controller.js — stubbed, returns 200 "Coming soon"
-- [ ] src/controllers/report.controller.js — stubbed, returns 200 "Coming soon"
-- [ ] src/controllers/admin.controller.js — stubbed, returns 200 "Coming soon"
-- [ ] src/routes/project.routes.js
-- [ ] src/routes/conflict.routes.js
-- [ ] src/routes/department.routes.js
-- [ ] src/routes/report.routes.js
-- [ ] src/routes/admin.routes.js
+- [x] src/controllers/project.controller.js — stubbed, returns 200 "Coming soon"
+- [x] src/controllers/conflict.controller.js — stubbed, returns 200 "Coming soon"
+- [x] src/controllers/department.controller.js — stubbed, returns 200 "Coming soon"
+- [x] src/controllers/report.controller.js — stubbed, returns 200 "Coming soon"
+- [x] src/controllers/admin.controller.js — stubbed, returns 200 "Coming soon"
+- [x] src/routes/project.routes.js
+- [x] src/routes/conflict.routes.js
+- [x] src/routes/department.routes.js
+- [x] src/routes/report.routes.js
+- [x] src/routes/admin.routes.js
 
 ### App Entry
-- [ ] src/app.js — Express setup, all routes mounted, all middleware registered
-- [ ] server.js — entry point, starts HTTP server
-- [ ] swagger.js — base Swagger/OpenAPI config
+- [x] src/app.js — Express setup, all routes mounted, all middleware registered
+- [x] server.js — entry point, starts HTTP server
+- [x] swagger.js — base Swagger/OpenAPI config
 
 ### DevOps
-- [ ] package.json — all dependencies and scripts
-- [ ] .env.example
-- [ ] Dockerfile
-- [ ] docker-compose.yml — backend + mongo services only
+- [x] package.json — all dependencies and scripts
+- [x] .env.example
+- [x] Dockerfile
+- [x] docker-compose.yml — backend + mongo services only
 
 **Done when:**
-- npm run dev → server starts on port 5000
-- MongoDB connects successfully
-- POST /api/v1/auth/register → creates user, returns token
-- POST /api/v1/auth/login → returns JWT token
-- GET /api/v1/auth/me → returns user with valid token
-- All other routes return 200 "Coming soon — Phase 2"
+- npm run dev → server starts on port 5000 ✅
+- MongoDB connects successfully ✅
+- POST /api/v1/auth/register → creates user, returns token ✅
+- POST /api/v1/auth/login → returns JWT token ✅
+- GET /api/v1/auth/me → returns user with valid token ✅
+- All other routes return 200 "Coming soon — Phase 2" ✅
+- Swagger UI loads at /api/v1/docs/ ✅
 
-**Files created:** *(fill after session)*
+**Files created:**
+- src/config/index.js
+- src/config/db.js
+- src/config/cloudinary.js
+- src/models/User.js
+- src/models/Department.js
+- src/models/Project.js
+- src/models/Conflict.js
+- src/models/CitizenReport.js
+- src/models/AuditLog.js
+- src/utils/response.js
+- src/utils/logger.js
+- src/utils/trackingId.js
+- src/middleware/auth.middleware.js
+- src/middleware/rbac.middleware.js
+- src/middleware/validate.middleware.js
+- src/middleware/error.middleware.js
+- src/validators/auth.validator.js
+- src/validators/project.validator.js
+- src/services/auth.service.js
+- src/controllers/auth.controller.js
+- src/routes/auth.routes.js
+- src/controllers/project.controller.js
+- src/controllers/conflict.controller.js
+- src/controllers/department.controller.js
+- src/controllers/report.controller.js
+- src/controllers/admin.controller.js
+- src/routes/project.routes.js
+- src/routes/conflict.routes.js
+- src/routes/department.routes.js
+- src/routes/report.routes.js
+- src/routes/admin.routes.js
+- src/app.js
+- server.js
+- swagger.js
+- package.json
+- .env.example
+- Dockerfile
+- docker-compose.yml
 
 ---
 
@@ -144,7 +183,7 @@ Phase 5 — Integration & Testing   ⏳ NOT STARTED
 
 ## Phase 3 — Frontend
 **Assigned to:** Claude ID 3
-**Status:** ⏳ NOT STARTED
+**Status:** 🔄 IN PROGRESS
 **Depends on:** Phase 1 complete (needs API contract only, not running backend)
 
 **Attach at session start:**
