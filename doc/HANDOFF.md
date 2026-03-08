@@ -63,7 +63,7 @@ Dev Tools:     Swagger, Jest, Postman
 backend/
 ├── src/
 │   ├── config/
-|   |   ├── index.js               # Central config — all env variables
+│   │   ├── index.js               # Central config — all env variables
 │   │   ├── db.js                  # MongoDB connection
 │   │   └── cloudinary.js          # Cloudinary config
 │   ├── models/
@@ -88,6 +88,7 @@ backend/
 │   │   ├── report.controller.js
 │   │   └── admin.controller.js
 │   ├── services/
+│   │   ├── auth.service.js        # registerUser, loginUser, getMe
 │   │   ├── project.service.js
 │   │   ├── conflict.service.js
 │   │   ├── decision.service.js
@@ -120,12 +121,16 @@ backend/
 │   │   └── trackingId.js
 │   ├── socket/
 │   │   └── socket.handler.js
+│   ├── tests/
+│   │   ├── engines/
+│   │   └── api/
 │   └── app.js
+├── logs/
 ├── server.js
+├── swagger.js
 ├── .env.example
 ├── Dockerfile
-├── package.json
-└── swagger.js
+└── package.json
 ```
 
 ---
@@ -135,6 +140,8 @@ backend/
 ```
 frontend/
 ├── src/
+│   ├── config/
+│   │   └── index.js               # Central config — reads import.meta.env
 │   ├── api/
 │   │   ├── axios.config.js
 │   │   ├── auth.api.js
@@ -143,6 +150,8 @@ frontend/
 │   │   └── report.api.js
 │   ├── components/
 │   │   ├── common/
+│   │   │   ├── Logo.jsx
+│   │   │   ├── Avatar.jsx
 │   │   │   ├── Button.jsx
 │   │   │   ├── Modal.jsx
 │   │   │   ├── Badge.jsx
@@ -194,12 +203,21 @@ frontend/
 │   │   └── formatters.js
 │   ├── router/
 │   │   └── AppRouter.jsx
+│   ├── assets/
+│   │   ├── illustrations/
+│   │   │   ├── empty-projects.svg
+│   │   │   ├── no-conflicts.svg
+│   │   │   ├── hero-city.svg
+│   │   │   └── not-found.svg
+│   │   └── icons/
 │   ├── App.jsx
 │   └── main.jsx
 ├── index.html
 ├── tailwind.config.js
 ├── vite.config.js
-└── Dockerfile
+├── postcss.config.js
+├── Dockerfile
+└── package.json
 ```
 
 ---
@@ -210,7 +228,7 @@ frontend/
 # backend/.env
 NODE_ENV=development
 PORT=5000
-MONGO_URI=mongodb://mongo:27017/urban-nexus
+MONGO_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/urban-nexus?appName=Cluster0
 JWT_SECRET=your_jwt_secret_here
 JWT_EXPIRY=7d
 CLOUDINARY_CLOUD_NAME=your_cloud_name
@@ -284,7 +302,7 @@ Every single API response must follow this format. No exceptions.
 **Config Rule:**
 - NEVER use process.env.ANYTHING directly in any file
 - ALWAYS import from src/config/index.js
-- Frontend: ALWAYS import from src/config/index.js using import.meta.env
+- Frontend: ALWAYS import from src/config/index.js using import.meta.env inside that file only
 
 **Error Handling:**
 ```javascript
@@ -357,13 +375,42 @@ Notification emitted via Socket.io
 
 ---
 
-## 14. What Has Been Built
+## 14. JWT Payload Structure
+
+```javascript
+{
+  userId:       user._id,
+  role:         user.role,
+  departmentId: user.department
+}
+```
+
+These exact field names are used everywhere in the codebase.
+auth.middleware.js reads these fields when it decodes the token and sets req.user.
+
+---
+
+## 15. Routing After Login
+
+```
+admin      → /dashboard
+officer    → /dept-dashboard
+supervisor → /tasks
+citizen    → / (public landing, no login)
+```
+
+Router redirects automatically based on role after login.
+Each role has its own dedicated page optimised for their workflow.
+
+---
+
+## 16. What Has Been Built
 
 See `PROGRESS.md` for current build status.
 
 ---
 
-## 15. GitHub Repo Structure
+## 17. GitHub Repo Structure
 
 ```
 urban-nexus/
@@ -373,17 +420,16 @@ urban-nexus/
 │   ├── HANDOFF.md        ← this file
 │   ├── SCHEMA.md         ← all MongoDB schemas
 │   ├── API_CONTRACT.md   ← all endpoints
-│   └── PROGRESS.md       ← build tracker
+│   ├── PROGRESS.md       ← build tracker
+│   └── UI_GUIDE.md       ← complete design system
 └── README.md
 ```
 
 ---
 
----
+## 18. Assets
 
-## 16. Assets
-
-### 16.1 Illustrations
+### 18.1 Illustrations
 > Source: [undraw.co](https://undraw.co) — set accent color to `#0E9F6E` before downloading
 
 Location: `frontend/src/assets/illustrations/`
@@ -397,11 +443,13 @@ Location: `frontend/src/assets/illustrations/`
 
 ---
 
-### 16.2 Icons
+### 18.2 Icons
 > Source: [Lucide React](https://lucide.dev) — npm package, no files to download
+
 ```bash
 npm install lucide-react
 ```
+
 ```javascript
 // Usage
 import { MapPin, AlertTriangle, Building2, Bell } from 'lucide-react'
@@ -411,7 +459,7 @@ No icon files live in this repo. Every icon comes from this package only.
 
 ---
 
-### 16.3 Logo
+### 18.3 Logo
 > Defined in: `UI_GUIDE.md → Section 5`
 
 - Built as a pure SVG React component
@@ -421,7 +469,7 @@ No icon files live in this repo. Every icon comes from this package only.
 
 ---
 
-### 16.4 User Avatars
+### 18.4 User Avatars
 > No image uploads for user profiles in MVP
 
 - Built as an initials-based React component
@@ -431,7 +479,7 @@ No icon files live in this repo. Every icon comes from this package only.
 
 ---
 
-### 16.5 Map Tiles
+### 18.5 Map Tiles
 > CDN reference only — no downloads required
 
 | Mode | Tile Provider |
@@ -440,6 +488,8 @@ No icon files live in this repo. Every icon comes from this package only.
 | Dark mode | CartoDB DarkMatter |
 
 Full URLs defined in `UI_GUIDE.md → Section 8`
+
+---
 
 *This file is the single source of truth for all developers on this project.*
 *Do not deviate from the folder structure, naming conventions, or response format defined here.*
