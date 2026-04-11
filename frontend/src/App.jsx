@@ -1,11 +1,5 @@
-import AppRouter from "./router/AppRouter"
-import { ToastContainer } from "./components/Toast"
+import AppRouter from './router/AppRouter'
 
 export default function App() {
-  return (
-    <>
-      <AppRouter />
-      <ToastContainer />
-    </>
-  )
+  return <AppRouter />
 }

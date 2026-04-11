@@ -2,30 +2,108 @@
 //  CIVIQ — Navbar (JSX)
 // ─────────────────────────────────────────────
 
-import { useState } from 'react'
-import Avatar from './Avatar'
+import { useState } from "react";
+import Avatar from "./Avatar";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const BellIcon  = () => <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-const SunIcon   = () => <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-const MoonIcon  = () => <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-const ChevronDown = () => <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+const BellIcon = () => (
+  <svg
+    width="18"
+    height="18"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    viewBox="0 0 24 24"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+    <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+  </svg>
+);
+const SunIcon = () => (
+  <svg
+    width="17"
+    height="17"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    viewBox="0 0 24 24"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+);
+const MoonIcon = () => (
+  <svg
+    width="17"
+    height="17"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    viewBox="0 0 24 24"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+);
+const ChevronDown = () => (
+  <svg
+    width="13"
+    height="13"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
 
 function IconBtn({ children, onClick, badge = false }) {
   return (
-    <button onClick={onClick} className="relative w-9 h-9 flex items-center justify-center rounded-[6px] text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#0F172A] dark:hover:text-[#F8FAFC] hover:bg-[#F3F3F3] dark:hover:bg-[#1E293B] transition-all duration-150">
+    <button
+      onClick={onClick}
+      className="relative w-9 h-9 flex items-center justify-center rounded-[6px] text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#0F172A] dark:hover:text-[#F8FAFC] hover:bg-[#F3F3F3] dark:hover:bg-[#1E293B] transition-all duration-150"
+    >
       {children}
-      {badge && <span className="absolute top-1.5 right-1.5 w-[6px] h-[6px] bg-[#DC2626] rounded-full" />}
+      {badge && (
+        <span className="absolute top-1.5 right-1.5 w-[6px] h-[6px] bg-[#DC2626] rounded-full" />
+      )}
     </button>
-  )
+  );
 }
 
-export default function Navbar({ pageTitle = 'Dashboard', pageAction, notificationCount = 0, darkMode = false, onToggleDark, userName = 'Rajesh Kumar', userInitials = 'RK', userRole = 'Municipal Coordinator' }) {
-  const [showNotif,   setShowNotif]   = useState(false)
-  const [showProfile, setShowProfile] = useState(false)
+export default function Navbar({
+  pageTitle = "Dashboard",
+  pageAction,
+  notificationCount = 0,
+  darkMode = false,
+  onToggleDark,
+  userName = "Rajesh Kumar",
+  userInitials = "RK",
+  userRole = "Municipal Coordinator",
+}) {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const [showNotif, setShowNotif] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   return (
     <div className="flex items-center justify-between px-8 h-16 border-b border-[#E2E8F0] dark:border-[#1E293B] flex-shrink-0">
-
       <h1 className="text-[18px] font-bold text-[#0F172A] dark:text-[#F8FAFC] tracking-tight leading-none">
         {pageTitle}
       </h1>
@@ -39,25 +117,46 @@ export default function Navbar({ pageTitle = 'Dashboard', pageAction, notificati
 
         {/* Bell */}
         <div className="relative">
-          <IconBtn onClick={() => { setShowNotif(!showNotif); setShowProfile(false) }} badge={notificationCount > 0}>
+          <IconBtn
+            onClick={() => {
+              setShowNotif(!showNotif);
+              setShowProfile(false);
+            }}
+            badge={notificationCount > 0}
+          >
             <BellIcon />
           </IconBtn>
           {showNotif && (
             <>
-              <div className="fixed inset-0 z-40" onClick={() => setShowNotif(false)} />
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setShowNotif(false)}
+              />
               <div className="absolute right-0 top-11 w-72 rounded-[8px] py-1 z-50 bg-[#FFFFFF] dark:bg-[#1C1C1F] border border-[#E2E8F0] dark:border-[#1E293B] shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.40)]">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#94A3B8] px-4 py-2.5 border-b border-[#E2E8F0] dark:border-[#1E293B]">Notifications</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#94A3B8] px-4 py-2.5 border-b border-[#E2E8F0] dark:border-[#1E293B]">
+                  Notifications
+                </p>
                 {notificationCount === 0 ? (
-                  <p className="text-[13px] text-[#64748B] px-4 py-4 text-center">No new notifications</p>
+                  <p className="text-[13px] text-[#64748B] px-4 py-4 text-center">
+                    No new notifications
+                  </p>
                 ) : (
                   <>
                     <div className="px-4 py-3 hover:bg-[#F8FAFC] dark:hover:bg-[#252529] cursor-pointer border-b border-[#E2E8F0] dark:border-[#1E293B]">
-                      <p className="text-[13px] font-medium text-[#0F172A] dark:text-[#F8FAFC]">Clash detected</p>
-                      <p className="text-[12px] text-[#64748B] mt-0.5">MG Road ↔ Sector 5 · Ward 12</p>
+                      <p className="text-[13px] font-medium text-[#0F172A] dark:text-[#F8FAFC]">
+                        Clash detected
+                      </p>
+                      <p className="text-[12px] text-[#64748B] mt-0.5">
+                        MG Road ↔ Sector 5 · Ward 12
+                      </p>
                     </div>
                     <div className="px-4 py-3 hover:bg-[#F8FAFC] dark:hover:bg-[#252529] cursor-pointer">
-                      <p className="text-[13px] font-medium text-[#0F172A] dark:text-[#F8FAFC]">New project submitted</p>
-                      <p className="text-[12px] text-[#64748B] mt-0.5">PWD · MG Road Resurfacing</p>
+                      <p className="text-[13px] font-medium text-[#0F172A] dark:text-[#F8FAFC]">
+                        New project submitted
+                      </p>
+                      <p className="text-[12px] text-[#64748B] mt-0.5">
+                        PWD · MG Road Resurfacing
+                      </p>
                     </div>
                   </>
                 )}
@@ -70,26 +169,53 @@ export default function Navbar({ pageTitle = 'Dashboard', pageAction, notificati
 
         {/* Profile */}
         <div className="relative">
-          <button onClick={() => { setShowProfile(!showProfile); setShowNotif(false) }} className="flex items-center gap-2 px-2 py-1.5 rounded-[6px] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B] transition-all duration-150">
+          <button
+            onClick={() => {
+              setShowProfile(!showProfile);
+              setShowNotif(false);
+            }}
+            className="flex items-center gap-2 px-2 py-1.5 rounded-[6px] hover:bg-[#F1F5F9] dark:hover:bg-[#1E293B] transition-all duration-150"
+          >
             <Avatar initials={userInitials} size="sm" online />
-            <span className="text-[13px] font-medium text-[#0F172A] dark:text-[#F8FAFC]">{userName.split(' ')[0]}</span>
-            <span className="text-[#94A3B8]"><ChevronDown /></span>
+            <span className="text-[13px] font-medium text-[#0F172A] dark:text-[#F8FAFC]">
+              {userName.split(" ")[0]}
+            </span>
+            <span className="text-[#94A3B8]">
+              <ChevronDown />
+            </span>
           </button>
           {showProfile && (
             <>
-              <div className="fixed inset-0 z-40" onClick={() => setShowProfile(false)} />
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setShowProfile(false)}
+              />
               <div className="absolute right-0 top-11 w-52 rounded-[8px] py-1 z-50 bg-[#FFFFFF] dark:bg-[#1C1C1F] border border-[#E2E8F0] dark:border-[#1E293B] shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.40)]">
                 <div className="px-4 py-3 border-b border-[#E2E8F0] dark:border-[#1E293B]">
-                  <p className="text-[13px] font-semibold text-[#0F172A] dark:text-[#F8FAFC]">{userName}</p>
-                  <p className="text-[11px] text-[#64748B] mt-0.5">{userRole}</p>
+                  <p className="text-[13px] font-semibold text-[#0F172A] dark:text-[#F8FAFC]">
+                    {userName}
+                  </p>
+                  <p className="text-[11px] text-[#64748B] mt-0.5">
+                    {userRole}
+                  </p>
                 </div>
-                <button className="w-full text-left px-4 py-2.5 text-[13px] text-[#475569] dark:text-[#94A3B8] hover:bg-[#F8FAFC] dark:hover:bg-[#252529] hover:text-[#0F172A] dark:hover:text-[#F8FAFC] transition-colors">Profile & Settings</button>
-                <button className="w-full text-left px-4 py-2.5 text-[13px] text-[#DC2626] hover:bg-[#FEF2F2] dark:hover:bg-[#2D0A0A] transition-colors">Sign out</button>
+                <button className="w-full text-left px-4 py-2.5 text-[13px] text-[#475569] dark:text-[#94A3B8] hover:bg-[#F8FAFC] dark:hover:bg-[#252529] hover:text-[#0F172A] dark:hover:text-[#F8FAFC] transition-colors">
+                  Profile & Settings
+                </button>
+                <button
+                  onClick={() => {
+                    logout();
+                    navigate("/login");
+                  }}
+                  className="w-full text-left px-4 py-2.5 text-[13px] text-[#DC2626] hover:bg-[#FEF2F2] dark:hover:bg-[#2D0A0A] transition-colors"
+                >
+                  Sign out
+                </button>
               </div>
             </>
           )}
         </div>
       </div>
     </div>
-  )
+  );
 }
